@@ -38,3 +38,36 @@ export default {
     </ul>
   </aside>
 </template>
+
+<style scoped>
+.sidebar {
+  height: 100vh;
+  border-right: 1px solid var(--dark-gray);
+  background: var(--white);
+}
+
+.sidebar ul {
+  list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+
+  padding-left: 36px;
+  padding-right: 30px;
+}
+
+.sidebar ul li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 40px;
+}
+
+.sidebar ul li a {
+  color: var(--black);
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #001738;
+  opacity: 1;
+}
+</style>
