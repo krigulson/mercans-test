@@ -32,20 +32,29 @@ export default {
 <template>
   <aside class="sidebar">
     <div class="sidebar-heading">Employee self service</div>
-    <ul>
-      <li v-for="sortedLinks in sortedLinks">
-        <a :href="sortedLinks.path">{{ humanize(sortedLinks.title) }}</a>
-      </li>
-    </ul>
+
+    <div class="sidebar-inner">
+      <ul class="menu-links">
+        <li v-for="sortedLinks in sortedLinks">
+          <a :href="sortedLinks.path">{{ humanize(sortedLinks.title) }}</a>
+        </li>
+      </ul>
+      <ul class="copyright"><li>Mercans &copy; {{ new Date().getFullYear() }}</li></ul>
+    </div>
   </aside>
 </template>
 
 <style scoped>
 .sidebar {
-  height: 100vh;
   max-width: 230px;
   border-right: 1px solid var(--dark-gray);
   background: var(--white);
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 88px);
 }
 
 .sidebar-heading {
@@ -67,12 +76,13 @@ export default {
   height: 40px;
 }
 
-.sidebar ul li:hover {
+.sidebar ul li:hover:not(.sidebar ul.copyright li) {
   background: var(--light-grayish-blue) 0% 0% no-repeat padding-box;
   cursor: pointer;
 }
 
-.sidebar ul li a {
+.sidebar ul li a,
+.sidebar ul.copyright li {
   display: block;
   color: var(--black);
   text-align: left;
@@ -80,5 +90,11 @@ export default {
   letter-spacing: 0px;
   opacity: 1;
   padding: 10px 35px;
+}
+
+.sidebar ul.copyright {
+  padding-top: 0;
+  margin-top: auto;
+  padding-bottom: 22px;
 }
 </style>
