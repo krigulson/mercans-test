@@ -1,8 +1,10 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import NavigationSidebar from './components/NavigationSidebar.vue';
 </script>
 
 <template>
+  <NavigationSidebar />
   <RouterView />
 </template>
 
