@@ -41,13 +41,23 @@ export default {
       </ul>
       <ul class="copyright"><li>Mercans &copy; {{ new Date().getFullYear() }}</li></ul>
     </div>
+    <div class="separator"></div>
   </aside>
 </template>
 
 <style scoped>
+.separator {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background: var(---97a0ac) 0% 0% no-repeat padding-box;
+  background: #97A0AC 0% 0% no-repeat padding-box;
+  opacity: 1;
+  top: 0;
+  left: 230px;
+}
 .sidebar {
   max-width: 230px;
-  border-right: 1px solid var(--dark-gray);
   background: var(--white);
 }
 
@@ -96,5 +106,9 @@ export default {
   padding-top: 0;
   margin-top: auto;
   padding-bottom: 22px;
+}
+
+.sidebar ul.copyright li {
+  color: var(--dark-gray);
 }
 </style>
