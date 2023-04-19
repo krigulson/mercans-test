@@ -1,11 +1,15 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import NavigationSidebar from './components/NavigationSidebar.vue';
 </script>
 
 <template>
   <NavigationSidebar />
-  <RouterView />
+  <main class="main-content">
+    <div class="content">
+      <RouterView />
+    </div>
+  </main>
 </template>
 
 <style scoped>

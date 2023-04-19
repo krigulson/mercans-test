@@ -58,6 +58,7 @@ export default {
 }
 .sidebar {
   max-width: 230px;
+  min-width: 230px;
   background: var(--white);
 }
 
@@ -72,6 +73,7 @@ export default {
   background: #001738 0% 0% no-repeat padding-box;
   font-weight: 700;
   color: var(--white);
+  line-height: 1;
 }
 
 .sidebar ul {
