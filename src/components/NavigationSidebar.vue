@@ -1,11 +1,16 @@
 <script>
 import menuLinks from '../static/menuLinks.json';
+import Icon from './Icon.vue';
 
 export default {
   data() {
     return {
       menuLinks: menuLinks
     }
+  },
+
+  components: {
+    Icon
   },
 
   computed: {
@@ -32,11 +37,15 @@ export default {
 <template>
   <aside class="sidebar">
     <div class="sidebar-heading">Employee self service</div>
-
     <div class="sidebar-inner">
       <ul class="menu-links">
         <li v-for="sortedLinks in sortedLinks">
-          <router-link :to="{path:sortedLinks.path}">{{ humanize(sortedLinks.title) }}</router-link>
+          <router-link :to="{path:sortedLinks.path}">
+            <div>
+              <Icon :name="sortedLinks.icon" />
+            </div>
+            {{ humanize(sortedLinks.title) }}
+          </router-link>
         </li>
       </ul>
       <ul class="copyright"><li>Mercans &copy; {{ new Date().getFullYear() }}</li></ul>
@@ -95,13 +104,27 @@ export default {
 
 .sidebar ul li a,
 .sidebar ul.copyright li {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 16px;
   color: var(--black);
   text-align: left;
   font-size: 14px;
   letter-spacing: 0px;
   opacity: 1;
   padding: 10px 35px;
+  padding-right: 25px;
+}
+
+.sidebar ul li a div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 24px;
+}
+.sidebar ul li a div svg {
+  height: 24px;
+  fill: #001738;
 }
 
 .sidebar ul li a.is-active {
@@ -125,5 +148,6 @@ export default {
 
 .sidebar ul.copyright li {
   color: var(--dark-gray);
+  justify-content: center;
 }
 </style>
