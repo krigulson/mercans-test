@@ -120,7 +120,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 24px;
+  width: 24px;
 }
 .sidebar ul li a div svg {
   height: 24px;
