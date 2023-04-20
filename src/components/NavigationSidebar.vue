@@ -36,7 +36,7 @@ export default {
     <div class="sidebar-inner">
       <ul class="menu-links">
         <li v-for="sortedLinks in sortedLinks">
-          <a :href="sortedLinks.path">{{ humanize(sortedLinks.title) }}</a>
+          <router-link :to="{path:sortedLinks.path}">{{ humanize(sortedLinks.title) }}</router-link>
         </li>
       </ul>
       <ul class="copyright"><li>Mercans &copy; {{ new Date().getFullYear() }}</li></ul>
