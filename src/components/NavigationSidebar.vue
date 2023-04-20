@@ -104,6 +104,19 @@ export default {
   padding: 10px 35px;
 }
 
+.sidebar ul li a.is-active {
+  background: var(--light-grayish-blue) 0% 0% no-repeat padding-box;
+  color: #FC6541;
+}
+.sidebar ul li a.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: #FC6541 0% 0% no-repeat padding-box;
+}
 .sidebar ul.copyright {
   padding-top: 0;
   margin-top: auto;

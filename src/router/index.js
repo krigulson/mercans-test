@@ -11,6 +11,8 @@ const routes = json.map(({ title, path }) => ({
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  linkActiveClass: "is-active",
+  linkExactActiveClass: "is-exact-active",
   routes: [
     ...routes,
     {
