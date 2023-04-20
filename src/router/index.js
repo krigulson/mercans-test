@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import json from '../static/menuLinks.json'
+import toPascalCase from '../helpers/pascalCase'
 
 const routes = json.map(({ title, path }) => ({
   name: title,
   path: '/' + path,
-  component: () => import('../views/QuickAccess.vue'),
+  component: () => import(`../views/${toPascalCase(title)}.vue`),
   props: { title: title }
 }));
 
