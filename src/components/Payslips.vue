@@ -1,9 +1,43 @@
+<script>
+
+import Payslips from '../static/payslips.json';
+import dayjs from 'dayjs';
+
+export default {
+  data() {
+    return {
+      dayjs,
+      payslips: Payslips,
+    }
+  },
+
+  computed: {
+    payslips() {
+      return this.payslips
+    },
+
+    paySlipsInEuro() {
+      return this.payslips.filter(function (payslip) {
+        return payslip.payslipEntries[4].currency === 'EUR';
+      });
+    },
+
+    paySlipsInDollar() {
+      return this.payslips.filter(function (payslip) {
+        return payslip.payslipEntries[4].currency === 'USD';
+      });
+    }
+  }
+}
+
+</script>
+
 <template>
   <div class="wrapper">
     <div class="table-filter">
       <ul>
-        <li><a href="" class="active">EUR (12)</a></li>
-        <li><a href="">USD (2)</a></li>
+        <li><a href="" class="active">EUR ({{paySlipsInEuro.length}})</a></li>
+        <li><a href="">USD ({{paySlipsInDollar.length}})</a></li>
       </ul>
     </div>
     
@@ -18,12 +52,12 @@
           <th>Action</th>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td class="month">December 2021</td>
-            <td>Payslip - HAA-002 - Myrle Guinane - 2019-03-01 - 2019-03-31.pdf</td>
-            <td>2940.87 EUR</td>
-            <td>2268 EUR</td>
+          <tr v-for="(payslips, index) in payslips">
+            <td>{{ index + 1 }}</td>
+            <td class="month">{{ dayjs(payslips.payrollDate).format('MMMM YYYY') }}</td>
+            <td>{{ payslips.fileAttachment.file.label }}</td>
+            <td>{{ payslips.payslipEntries[4].amount }} {{ payslips.payslipEntries[4].currency }}</td>
+            <td>{{ payslips.payslipEntries[2].amount }} {{ payslips.payslipEntries[2].currency }}</td>
             <td></td>
           </tr>
         </tbody>
