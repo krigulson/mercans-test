@@ -131,6 +131,9 @@ export default {
   background: var(--light-grayish-blue) 0% 0% no-repeat padding-box;
   color: #FC6541;
 }
+.sidebar ul li a.is-active svg {
+  fill: #FC6541;
+}
 .sidebar ul li a.is-active::before {
   content: '';
   position: absolute;
