@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 export default {
   data() {
     return {
+      showEur: true,
       dayjs,
       payslips: Payslips,
     }
@@ -26,6 +27,20 @@ export default {
       return this.payslips.filter(function (payslip) {
         return payslip.payslipEntries[4].currency === 'USD';
       });
+    },
+
+    visiblePaySlips() {
+      if (this.showEur) {
+        return this.paySlipsInEuro
+      } else {
+        return this.paySlipsInDollar
+      }
+    }
+  },
+
+  methods: {
+    toggle(e) {
+      this.showEur = !this.showEur
     }
   }
 }
@@ -36,8 +51,8 @@ export default {
   <div class="wrapper">
     <div class="table-filter">
       <ul>
-        <li><a href="" class="active">EUR ({{paySlipsInEuro.length}})</a></li>
-        <li><a href="">USD ({{paySlipsInDollar.length}})</a></li>
+        <li><button :class="{ active: showEur }" @click="toggle">EUR ({{paySlipsInEuro.length}})</button></li>
+        <li><button :class="{ active: !showEur }" @click="toggle">USD ({{paySlipsInDollar.length}})</button></li>
       </ul>
     </div>
     
@@ -52,12 +67,12 @@ export default {
           <th>Action</th>
         </thead>
         <tbody>
-          <tr v-for="(payslips, index) in payslips">
+          <tr v-for="(visiblePaySlips, index) in visiblePaySlips">
             <td>{{ index + 1 }}</td>
-            <td class="month">{{ dayjs(payslips.payrollDate).format('MMMM YYYY') }}</td>
-            <td>{{ payslips.fileAttachment.file.label }}</td>
-            <td>{{ payslips.payslipEntries[4].amount }} {{ payslips.payslipEntries[4].currency }}</td>
-            <td>{{ payslips.payslipEntries[2].amount }} {{ payslips.payslipEntries[2].currency }}</td>
+            <td class="month">{{ dayjs(visiblePaySlips.payrollDate).format('MMMM YYYY') }}</td>
+            <td>{{ visiblePaySlips.fileAttachment.file.label }}</td>
+            <td>{{ visiblePaySlips.payslipEntries[4].amount }} {{ visiblePaySlips.payslipEntries[4].currency }}</td>
+            <td>{{ visiblePaySlips.payslipEntries[2].amount }} {{ visiblePaySlips.payslipEntries[2].currency }}</td>
             <td></td>
           </tr>
         </tbody>
@@ -95,8 +110,8 @@ export default {
 .table-filter ul {
   list-style: none;
   padding-inline-start: 24px;
-
   display: flex;
+  height: 100%;
 }
 
 .table-filter ul li {
@@ -105,13 +120,14 @@ export default {
   justify-content: center;
 }
 
-.table-filter ul li a {
+.table-filter ul li button {
   padding: 16px 18px;
   color: #FFFFFF;
   font-weight: bold;
+  height: 100%;
 }
 
-.table-filter ul li a.active {
+.table-filter ul li button.active {
   background: #E5541B;
 }
 

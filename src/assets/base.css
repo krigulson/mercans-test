@@ -87,3 +87,13 @@ th {
   font-size: 12px;
   font-weight: bold;
 }
+
+button {
+  appearance: none;
+  border: none;
+  background: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
