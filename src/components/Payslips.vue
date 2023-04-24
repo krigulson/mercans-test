@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 export default {
   data() {
     return {
+      opened: [],
       showEur: true,
       dayjs,
       payslips: Payslips,
@@ -41,6 +42,20 @@ export default {
   methods: {
     toggle(e) {
       this.showEur = !this.showEur
+    },
+
+    showPdf(accessToken, visiblePaySlips) {
+      const index = this.opened.indexOf(accessToken);
+      if (index > -1) {
+      	this.opened.splice(index, 1)
+      } else {
+      	this.opened.push(accessToken)
+      }
+
+      fetch(`http://localhost:5173/src/static/pdf/${accessToken}.pdf`)
+        .then(response => {
+          visiblePaySlips.pdfUrl = response.url
+        })
     }
   }
 }
@@ -67,14 +82,21 @@ export default {
           <th>Action</th>
         </thead>
         <tbody>
-          <tr v-for="(visiblePaySlips, index) in visiblePaySlips">
-            <td>{{ index + 1 }}</td>
-            <td class="month">{{ dayjs(visiblePaySlips.payrollDate).format('MMMM YYYY') }}</td>
-            <td>{{ visiblePaySlips.fileAttachment.file.label }}</td>
-            <td>{{ visiblePaySlips.payslipEntries[4].amount }} {{ visiblePaySlips.payslipEntries[4].currency }}</td>
-            <td>{{ visiblePaySlips.payslipEntries[2].amount }} {{ visiblePaySlips.payslipEntries[2].currency }}</td>
-            <td></td>
-          </tr>
+          <template v-for="(visiblePaySlips, index) in visiblePaySlips">
+            <tr @click="showPdf(visiblePaySlips.fileAttachment.accessToken, visiblePaySlips)" :class="{ opened: opened.includes(visiblePaySlips.fileAttachment.accessToken)}">
+              <td>{{ index + 1 }}</td>
+              <td class="month">{{ dayjs(visiblePaySlips.payrollDate).format('MMMM YYYY') }}</td>
+              <td>{{ visiblePaySlips.fileAttachment.file.label }}</td>
+              <td>{{ visiblePaySlips.payslipEntries[4].amount }} {{ visiblePaySlips.payslipEntries[4].currency }}</td>
+              <td>{{ visiblePaySlips.payslipEntries[2].amount }} {{ visiblePaySlips.payslipEntries[2].currency }}</td>
+              <td></td>
+            </tr>
+            <tr v-if="opened.includes(visiblePaySlips.fileAttachment.accessToken)">
+              <td colspan="6">
+                <embed :src="visiblePaySlips.pdfUrl + '#toolbar=0&navpanes=0'" :type="visiblePaySlips.fileAttachment.file.mimeType" width="100%" height="500px" />
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -133,5 +155,9 @@ export default {
 
 td.month {
   color: #E5541B;
+}
+
+.opened {
+  background-color: #FEE5DB;
 }
 </style>
