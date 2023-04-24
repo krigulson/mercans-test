@@ -91,11 +91,13 @@ export default {
               <td>{{ visiblePaySlips.payslipEntries[2].amount }} {{ visiblePaySlips.payslipEntries[2].currency }}</td>
               <td></td>
             </tr>
-            <tr v-if="opened.includes(visiblePaySlips.fileAttachment.accessToken)">
-              <td colspan="6">
-                <embed :src="visiblePaySlips.pdfUrl + '#toolbar=0&navpanes=0'" :type="visiblePaySlips.fileAttachment.file.mimeType" width="100%" height="500px" />
-              </td>
-            </tr>
+            <Transition name="fade" mode="out-in" appear>
+              <tr v-if="opened.includes(visiblePaySlips.fileAttachment.accessToken)">
+                <td colspan="6">
+                  <embed :src="visiblePaySlips.pdfUrl + '#toolbar=0&navpanes=0'" :type="visiblePaySlips.fileAttachment.file.mimeType" width="100%" height="500px" />
+                </td>
+              </tr>
+            </Transition>
           </template>
         </tbody>
       </table>
