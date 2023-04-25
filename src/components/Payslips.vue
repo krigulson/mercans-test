@@ -2,8 +2,8 @@
 
 import Payslips from '../static/payslips.json';
 import dayjs from 'dayjs';
-import Icon from './Icon.vue';
-import Modal from './Modal.vue';
+import Icon from './SvgIcon.vue';
+import Modal from './EvolutionModal.vue';
 
 export default {
   components: {
@@ -21,9 +21,7 @@ export default {
   },
 
   computed: {
-    payslips() {
-      return this.payslips
-    },
+    
 
     paySlipsInEuro() {
       return this.payslips.filter(function (payslip) {
@@ -47,7 +45,7 @@ export default {
   },
 
   methods: {
-    filterByCurrency(e) {
+    filterByCurrency() {
       this.showEur = !this.showEur
     },
 
@@ -100,7 +98,7 @@ export default {
           <th>Action</th>
         </thead>
         <tbody>
-          <template v-for="(visiblePaySlips, index) in visiblePaySlips">
+          <template v-for="(visiblePaySlips, index) in visiblePaySlips" :key="index">
             <tr @click="showPdf(visiblePaySlips.fileAttachment.accessToken, visiblePaySlips)" :class="{ opened: opened.includes(visiblePaySlips.fileAttachment.accessToken)}">
               <td>{{ index + 1 }}</td>
               <td class="month">{{ dayjs(visiblePaySlips.payrollDate).format('MMMM YYYY') }}</td>

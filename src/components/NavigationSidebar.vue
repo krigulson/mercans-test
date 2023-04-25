@@ -1,6 +1,6 @@
 <script>
 import menuLinks from '../static/menuLinks.json';
-import Icon from './Icon.vue';
+import Icon from './SvgIcon.vue';
 
 export default {
   data() {
@@ -45,7 +45,7 @@ export default {
     </div>
     <div class="sidebar-inner">
       <ul class="menu-links">
-        <li v-for="sortedLinks in sortedLinks">
+        <li v-for="(sortedLinks, index) in sortedLinks" :key="index">
           <router-link :to="{path:sortedLinks.path}">
             <div>
               <Icon :name="sortedLinks.icon" />

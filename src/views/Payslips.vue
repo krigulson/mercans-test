@@ -1,7 +1,7 @@
 <script setup>
 
 import humanize from '../helpers/humanize';
-import Payslips from '../components/Payslips.vue';
+import PaySlips from '../components/Payslips.vue';
 
 defineProps({
   title: {
@@ -14,5 +14,5 @@ defineProps({
 
 <template>
   <h1 class="heading">{{ humanize(title) }}</h1>
-  <Payslips />
+  <PaySlips />
 </template>
