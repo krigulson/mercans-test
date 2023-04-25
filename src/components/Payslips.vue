@@ -2,8 +2,12 @@
 
 import Payslips from '../static/payslips.json';
 import dayjs from 'dayjs';
+import Icon from './Icon.vue';
 
 export default {
+  components: {
+    Icon
+  },
   data() {
     return {
       opened: [],
@@ -72,6 +76,12 @@ export default {
     </div>
     
     <div class="wrapper-inner">
+      <div class="evolution-button">
+        <div class="evolution-button-inner">
+          <Icon name="graph" />
+          <div class="tooltip tooltip-left">View salary information</div>
+        </div>
+      </div>
       <table>
         <thead>
           <th>#</th>
@@ -106,6 +116,77 @@ export default {
 </template>
 
 <style>
+.evolution-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: absolute;
+  right: -25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.evolution-button-inner {
+  width: inherit;
+  height: inherit;
+  background: white;
+  border-radius: 50%;
+  border: 2px solid #F4F6F8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  width: 175px;
+  height: 28px;
+  padding: 5px;
+  line-height: 1;
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .6s;
+
+  background: #001738 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 4px;
+  color: white;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #001738;
+}
+
+.tooltip-left {
+  bottom: auto;
+  right: 128%;
+}
+
+.evolution-button:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.evolution-button:hover .evolution-button-inner {
+  background: #FEE5DB;
+  cursor: pointer;
+}
+
+.evolution-button svg {
+  width: 24px;
+  height: 24px;
+}
+
 .wrapper {
   background: var(---ffffff) 0% 0% no-repeat padding-box;
   border: 1px solid var(---fee5db);
