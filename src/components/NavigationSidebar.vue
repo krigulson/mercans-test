@@ -37,6 +37,12 @@ export default {
 <template>
   <aside class="sidebar">
     <div class="sidebar-heading">Employee self service</div>
+    <div class="collapse-sidebar">
+      <div class="collapse-sidebar-inner">
+        <Icon name="chevron" />
+        <div class="tooltip tooltip-right">Collapse sidebar</div>
+      </div>
+    </div>
     <div class="sidebar-inner">
       <ul class="menu-links">
         <li v-for="sortedLinks in sortedLinks">
@@ -55,6 +61,42 @@ export default {
 </template>
 
 <style scoped>
+.collapse-sidebar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  right: -25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.collapse-sidebar-inner {
+  width: inherit;
+  height: inherit;
+  background: white;
+  border-radius: 50%;
+  border: 7px solid #F4F6F8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapse-sidebar:hover .collapse-sidebar-inner {
+  background: #FEE5DB;
+  cursor: pointer;
+}
+
+.collapse-sidebar:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.collapse-sidebar-inner svg {
+  height: 10px;
+}
 .separator {
   position: absolute;
   height: 100%;
