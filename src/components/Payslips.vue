@@ -3,13 +3,16 @@
 import Payslips from '../static/payslips.json';
 import dayjs from 'dayjs';
 import Icon from './Icon.vue';
+import Modal from './Modal.vue';
 
 export default {
   components: {
-    Icon
+    Icon,
+    Modal
   },
   data() {
     return {
+      showModal: false,
       opened: [],
       showEur: true,
       dayjs,
@@ -44,7 +47,7 @@ export default {
   },
 
   methods: {
-    toggle(e) {
+    filterByCurrency(e) {
       this.showEur = !this.showEur
     },
 
@@ -60,6 +63,10 @@ export default {
         .then(response => {
           visiblePaySlips.pdfUrl = response.url
         })
+    },
+
+    toggleModal() {
+      this.showModal = !this.showModal
     }
   }
 }
@@ -67,16 +74,17 @@ export default {
 </script>
 
 <template>
+  <Modal v-if="showModal" title="Gross/Net Salary evolution" @close="toggleModal" />
   <div class="wrapper">
     <div class="table-filter">
       <ul>
-        <li><button :class="{ active: showEur }" @click="toggle">EUR ({{paySlipsInEuro.length}})</button></li>
-        <li><button :class="{ active: !showEur }" @click="toggle">USD ({{paySlipsInDollar.length}})</button></li>
+        <li><button :class="{ active: showEur }" @click="filterByCurrency">EUR ({{paySlipsInEuro.length}})</button></li>
+        <li><button :class="{ active: !showEur }" @click="filterByCurrency">USD ({{paySlipsInDollar.length}})</button></li>
       </ul>
     </div>
     
     <div class="wrapper-inner">
-      <div class="evolution-button">
+      <div class="evolution-button" @click="toggleModal">
         <div class="evolution-button-inner">
           <Icon name="graph" />
           <div class="tooltip tooltip-left">View salary information</div>
