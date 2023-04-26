@@ -57,7 +57,7 @@ export default {
       	this.opened.push(accessToken)
       }
 
-      fetch(`http://localhost:5173/src/static/pdf/${accessToken}.pdf`)
+      fetch(`/src/static/pdf/${accessToken}.pdf`)
         .then(response => {
           visiblePaySlips.pdfUrl = response.url
         })
@@ -110,7 +110,7 @@ export default {
             <Transition name="fade" mode="out-in" appear>
               <tr v-if="opened.includes(visiblePaySlips.fileAttachment.accessToken)">
                 <td colspan="6">
-                  <embed :src="visiblePaySlips.pdfUrl + '#toolbar=0&navpanes=0'" :type="visiblePaySlips.fileAttachment.file.mimeType" width="100%" height="500px" />
+                  <embed :src="visiblePaySlips.pdfUrl" :type="visiblePaySlips.fileAttachment.file.mimeType" width="100%" height="500px" />
                 </td>
               </tr>
             </Transition>
